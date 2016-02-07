@@ -98,3 +98,28 @@
 
 # Adding new column
         DT[, w:= z^2]
+#Spwcial variable
+        set.seed(123)
+        DT <- data.table(x = sample(letters[1:3], 1E5, TRUE))
+        # will count by column x
+        DT[, .N, by=x]
+
+# Keys
+        DT <-data.table(x= rep(c("a","b","c"), each=100), y = rnorm(300))
+        setkey(DT, x)
+        DT['a']
+#Join. Will only show what is matched. otherwise it drop the unmatched values
+        DT1 <- data.table(x= c("a","a","b","dt1"), y= 1:4)
+        DT2 <- data.table(x= c("a","b","dt1"), z= 5:7)
+        setkey(DT1,x); setkey(DT2,x)
+        merge(DT1, DT2)
+
+# Fast reading comparison between data.frame and data.table
+        big_df <- data.frame(x = rnorm(1E6), y= rnorm(1E6))
+        file <- tempfile()
+        write.table(big_df, file=file, row.names = FALSE, col.names = TRUE,
+                    sep= "\t", quote = FALSE)
+        system.time(fread(file))
+
+# if read table is used, its slower
+        system.time(read.table(file, header = TRUE, sep= "\t"))
