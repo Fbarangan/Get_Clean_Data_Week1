@@ -62,3 +62,36 @@
 # website. currently the scores can be found using "div"
         scores <- xpathSApply(doc, "//div[@class='score']", xmlValue)
         teams <- xpathSApply(doc, "//div[@class = 'game-info']", xmlValue)
+
+# Reading data from Jason
+        library(jsonlite)
+        jsonData <- fromJSON("https://api.github.com/users/jtleek/repos")
+        names(jsonData)
+        names(jsonData$owner)
+        jsonData$owner$login
+# Writing Data frames to JSON
+        myjson <- toJSON(iris, pretty = TRUE)
+        cat(myjson)
+#Convert back to JSON
+        iris2 <- fromJSON(myjson)
+#Create data tables just like data frames
+        install.packages("data.table")
+        library(data.table)
+#Example
+        example("data.table")
+        DF = data.frame(x=rnorm(9), y = rep(c("a","b","c"), each = 3), z = rnorm(9))
+        DT = data.table(x= rnorm(9), y = rep(c("a","b","c"), each = 3), z = rnorm(9))
+        tables()
+        DT[2,]
+        DT[DT$y == "a"]
+        DT[c(2,3)]
+
+        {
+          x = 1
+          y = 2
+        }
+        k = {print(10); 5}
+        print(k)
+# Calculating Values for variable with expression
+#           after comma means that it pertain to column not row
+        DT[,list(mean(x), sum(z))]
