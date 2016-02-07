@@ -95,3 +95,6 @@
 # Calculating Values for variable with expression
 #           after comma means that it pertain to column not row
         DT[,list(mean(x), sum(z))]
+
+# Adding new column
+        DT[, w:= z^2]
