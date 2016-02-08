@@ -98,7 +98,7 @@
 
 # Adding new column
         DT[, w:= z^2]
-#Spwcial variable
+#Special variable
         set.seed(123)
         DT <- data.table(x = sample(letters[1:3], 1E5, TRUE))
         # will count by column x
@@ -123,3 +123,19 @@
 
 # if read table is used, its slower
         system.time(read.table(file, header = TRUE, sep= "\t"))
+
+        library(data.table)
+     *   DTmean <- mean(DT$pwgtp15, by=DT$SEX)
+        DTTapply <- tapply(DT$pwgtp15, DT$SEX, mean)
+     *   DTMean3 <- mean(DT[DT$SEX==1,]$pwgtp15);mean(DT[DT$SEX==2,]$pwgtp15)
+     *   DTrowMean <- rowMeans(DT)[DT$SEX==1];rowMeans(DT)[DT$SEX==2]
+        DTSapply <- sapply(split(DT$pwgtp15,DT$SEX),mean)
+       DTDT <- DT[,mean(pwgtp15), by=SEX]
+
+      tidyquestion <- read.csv("getdata_data_ss06pid.csv")
+      fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx"
+
+       ngap <- read.xlsx("ngap.xlsx", sheetIndex = 1, header = TRUE)
+       head(ngap)
+       tail(ngap)
+
